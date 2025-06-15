@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrName": {
+      "value": "crworkithcontainer001"
+    },
+    "location": {
+      "value": "Japan East"
+    },
+    "appServicePrefix": {
+      "value": "app-container-demo"
+    },
+    "appServicePlanSku": {
+      "value": "B1"
+    },
+    "applicationInsightsName": {
+      "value": "ai-container-demo"
+    }
+  }
+}
