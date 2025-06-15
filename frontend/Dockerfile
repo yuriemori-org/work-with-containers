@@ -7,14 +7,11 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install only production dependencies
+RUN npm ci --omit=dev
 
-# Copy source code
-COPY . .
-
-# Build the application
-RUN npm run build
+# Copy the pre-built application
+COPY dist ./dist
 
 # Expose port
 EXPOSE 3000
