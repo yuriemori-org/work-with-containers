@@ -8,6 +8,47 @@ GitHub ActionsとAzureのコンテナサービスを使ったデモ
 
 ## アーキテクチャ
 
+```mermaid
+graph TB
+    Developer[👨‍💻 Developer] --> GitHub[📝 GitHub Repository]
+    
+    GitHub --> |Push to main| GHA[🚀 GitHub Actions]
+    
+    subgraph "CI/CD Pipeline"
+        GHA --> |OIDC Auth| Azure[☁️ Azure]
+        GHA --> |Build & Push| ACR[📦 Azure Container Registry]
+        GHA --> |Deploy Infrastructure| Bicep[🏗️ Bicep Templates]
+    end
+    
+    subgraph "Azure Infrastructure"
+        ACR --> |Pull Images| Frontend[🌐 Frontend App Service]
+        ACR --> |Pull Images| Backend[⚙️ Backend App Service]
+        
+        Frontend --> AI[📊 Application Insights]
+        Backend --> AI
+        
+        Bicep --> Frontend
+        Bicep --> Backend
+        Bicep --> AI
+    end
+    
+    subgraph "Applications"
+        Frontend --> |Node.js/TypeScript| FrontendAPI["/api/health<br/>/"]
+        Backend --> |.NET 8 Web API| BackendAPI["/health<br/>/"]
+    end
+    
+    Users[👥 Users] --> Frontend
+    Users --> Backend
+    
+    style GitHub fill:#f9f,stroke:#333,stroke-width:2px
+    style ACR fill:#bbf,stroke:#333,stroke-width:2px
+    style Frontend fill:#bfb,stroke:#333,stroke-width:2px
+    style Backend fill:#fbb,stroke:#333,stroke-width:2px
+    style AI fill:#ffb,stroke:#333,stroke-width:2px
+```
+
+### 技術スタック
+
 - **フロントエンド**: Node.js + TypeScript (Express サーバー)
 - **バックエンド**: .NET 8 Web API
 - **コンテナレジストリ**: Azure Container Registry (ACR)
