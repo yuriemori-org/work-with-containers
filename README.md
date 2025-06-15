@@ -12,17 +12,17 @@ GitHub ActionsとAzureのコンテナサービスを使ったデモ
 graph TB
     Developer[👨‍💻 Developer] --> GitHub[📝 GitHub Repository]
     
-    GitHub --> |Push to main| GHA[🚀 GitHub Actions]
+    GitHub -->|Push to main| GHA[🚀 GitHub Actions]
     
     subgraph "CI/CD Pipeline"
-        GHA --> |OIDC Auth| Azure[☁️ Azure]
-        GHA --> |Build & Push| ACR[📦 Azure Container Registry]
-        GHA --> |Deploy Infrastructure| Bicep[🏗️ Bicep Templates]
+        GHA -->|OIDC Auth| Azure[☁️ Azure]
+        GHA -->|Build & Push| ACR[📦 Azure Container Registry]
+        GHA -->|Deploy Infrastructure| Bicep[🏗️ Bicep Templates]
     end
     
     subgraph "Azure Infrastructure"
-        ACR --> |Pull Images| Frontend[🌐 Frontend App Service]
-        ACR --> |Pull Images| Backend[⚙️ Backend App Service]
+        ACR -->|Pull Images| Frontend[🌐 Frontend App Service]
+        ACR -->|Pull Images| Backend[⚙️ Backend App Service]
         
         Frontend --> AI[📊 Application Insights]
         Backend --> AI
@@ -33,8 +33,8 @@ graph TB
     end
     
     subgraph "Applications"
-        Frontend --> |Node.js/TypeScript| FrontendAPI["/api/health<br/>/"]
-        Backend --> |.NET 8 Web API| BackendAPI["/health<br/>/"]
+        Frontend -->|Node.js/TypeScript| FrontendAPI["/api/health<br/>/"]
+        Backend -->|.NET 8 Web API| BackendAPI["/health<br/>/"]
     end
     
     Users[👥 Users] --> Frontend
